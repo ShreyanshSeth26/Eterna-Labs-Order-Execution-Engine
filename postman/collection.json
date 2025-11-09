@@ -1,0 +1,26 @@
+{
+  "info": { "name": "Order Engine Mock", "_postman_id": "a1b2c3d4", "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json" },
+  "item": [
+    { "name": "Health", "request": { "method": "GET", "url": "http://localhost:3000/healthz" } },
+    {
+      "name": "Execute Order (market)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "content-type", "value": "application/json" },
+          { "key": "Idempotency-Key", "value": "demo-123" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"type\":\"market\",\"baseMint\":\"So111...\",\"quoteMint\":\"USDC...\",\"side\":\"buy\",\"amountIn\":0.5}"
+        },
+        "url": "http://localhost:3000/api/orders/execute"
+      }
+    },
+    {
+      "name": "WS Status (connect)",
+      "request": { "method": "GET", "url": "ws://localhost:3000/api/orders/execute?orderId={{orderId}}" }
+    }
+  ],
+  "variable": [{ "key": "orderId", "value": "" }]
+}
